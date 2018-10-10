@@ -1,4 +1,4 @@
-package eu.wojciechzurek.passwordchecker
+package eu.wojciechzurek.pwnedpasswordchecker
 
 import org.junit.Test
 import org.junit.runner.RunWith

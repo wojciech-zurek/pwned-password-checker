@@ -1,4 +1,4 @@
-package eu.wojciechzurek.passwordchecker
+package eu.wojciechzurek.pwnedpasswordchecker
 
 import org.hibernate.annotations.DynamicInsert
 import org.hibernate.annotations.DynamicUpdate
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank
 @DynamicInsert
 @DynamicUpdate
 @Entity
-@Table(name = "pwned_passwords")
+@Table(name = "pwned_passwords", indexes = [])
 data class PwnedPassword(
         @Id
         @GeneratedValue(strategy = GenerationType.SEQUENCE)

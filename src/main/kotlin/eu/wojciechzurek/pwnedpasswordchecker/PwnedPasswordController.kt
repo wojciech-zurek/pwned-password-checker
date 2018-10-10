@@ -1,4 +1,4 @@
-package eu.wojciechzurek.passwordchecker
+package eu.wojciechzurek.pwnedpasswordchecker
 
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping

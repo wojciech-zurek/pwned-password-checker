@@ -1,4 +1,4 @@
-package eu.wojciechzurek.passwordchecker
+package eu.wojciechzurek.pwnedpasswordchecker
 
 data class PwnedPasswordResponse (
         val suffix: String,
