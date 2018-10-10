@@ -1,0 +1,17 @@
+version: '3'
+services:
+#  pwned-password-checker-app:
+#    container_name: pwned-password-checker
+#    hostname: pwned-password-checker
+#    image: eu.wojciechzurek/pwned-password-checker:latest
+#    ports:
+#      - "8080:8080"
+  db:
+    image: postgres
+#    restart: always
+    ports:
+    - "5432:5432"
+    environment:
+      POSTGRES_USER: pwned-db-owner
+      POSTGRES_PASSWORD: changeit
+      POSTGRES_DB: pwned-password
