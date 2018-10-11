@@ -24,7 +24,7 @@ keystore:
 	    -keystore $(KEYSTORE) -storepass $(PASSWORD)
 
 download-db:
-	#wget -P db/download $(URL)
+	wget -P db/download $(URL)
 	7z e db/download/$(FILE_NAME) -odb/download/
 
 build-docker:
