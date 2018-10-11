@@ -1,17 +1,27 @@
 version: '3'
 services:
-#  pwned-password-checker-app:
-#    container_name: pwned-password-checker
-#    hostname: pwned-password-checker
-#    image: eu.wojciechzurek/pwned-password-checker:latest
-#    ports:
-#      - "8080:8080"
   db:
     image: postgres
-#    restart: always
+    container_name: postgres
+    hostname: postgres
+    #    restart: always
     ports:
     - "5432:5432"
+    volumes:
+    - ./db:/db
+    - ./volumes/var/lib/postgresql/data:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: pwned-db-owner
+      POSTGRES_DB: pwned-passwords
+      POSTGRES_USER: pwned-passwords-db-owner
       POSTGRES_PASSWORD: changeit
-      POSTGRES_DB: pwned-password
+
+  pwned-password-checker-app:
+    container_name: pwned-password-checker
+    hostname: pwned-password-checker
+    image: eu.wojciechzurek/pwned-password-checker:latest
+    ports:
+      - "8080:8080"
+    volumes:
+    - ./volumes/cert:/app/cert
+    environment:
+      SPRING_PROFILES_ACTIVE: docker, tls

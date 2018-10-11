@@ -6,6 +6,8 @@ import java.util.stream.Collectors
 import java.util.stream.Stream
 import kotlin.streams.toList
 
+const val DELIMITER = ":"
+
 @Service
 class PwnedPasswordServiceImpl(
         private val pwnedPasswordRepository: PwnedPasswordRepository
@@ -18,11 +20,11 @@ class PwnedPasswordServiceImpl(
 
     override fun findByPrefixAsText(prefix: String): String =
             findByPrefix(prefix)
-                    .map { "${it.suffix}, ${it.count}" }
+                    .map { "${it.suffix}$DELIMITER${it.count}" }
                     .collect(Collectors.joining("\n"))
 
     override fun findByPrefixAsTextStream(prefix: String) =
-            Flux.fromStream(findByPrefix(prefix).map { "${it.suffix}, ${it.count}" })
+            Flux.fromStream(findByPrefix(prefix).map { "${it.suffix}$DELIMITER${it.count}" })
 
     fun findByPrefixAsList(prefix: String) =
             findByPrefix(prefix).map { PwnedPasswordResponse.from(it) }.toList()

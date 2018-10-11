@@ -13,18 +13,18 @@ class PwnedPasswordController(
 ) {
 
     @GetMapping(produces = [MediaType.TEXT_PLAIN_VALUE])
-    fun text(@PathVariable("prefix") prefix: String) =
+    fun findByPrefixAsText(@PathVariable("prefix") prefix: String) =
             pwnedPasswordService.findByPrefixAsText(prefix.toUpperCase())
 
     @GetMapping(produces = [MediaType.TEXT_EVENT_STREAM_VALUE])
-    fun textStream(@PathVariable("prefix") prefix: String) =
+    fun findByPrefixAsTextStream(@PathVariable("prefix") prefix: String) =
             pwnedPasswordService.findByPrefixAsTextStream(prefix.toUpperCase())
 
     @GetMapping(produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
-    fun json(@PathVariable("prefix") prefix: String) =
+    fun findByPrefixStream(@PathVariable("prefix") prefix: String) =
             pwnedPasswordService.findByPrefixStream(prefix.toUpperCase())
 
     @GetMapping(produces = [MediaType.APPLICATION_STREAM_JSON_VALUE])
-    fun streamJson(@PathVariable("prefix") prefix: String) =
+    fun findByPrefixAsFlux(@PathVariable("prefix") prefix: String) =
             pwnedPasswordService.findByPrefixAsFlux(prefix.toUpperCase())
 }

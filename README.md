@@ -1,7 +1,17 @@
 # Pwned Password Checker
-In progress
+In progress. Readme file not ready.
+
+## Requirements
+- wget
+- p7zip
+```
+Centos: yum install p7zip p7zip-plugins
+Arch: pacman -S p7zip
+```
+- make
 
 ## Status
+Not completed
 
 ## Download
 
