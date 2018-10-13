@@ -13,7 +13,7 @@ class PwnedPasswordServiceImpl(
         private val pwnedPasswordRepository: PwnedPasswordRepository
 ) : PwnedPasswordService {
 
-    override fun findByPrefix(prefix: String) = pwnedPasswordRepository.findByPrefix(prefix).stream()
+    override fun findByPrefix(prefix: String) = pwnedPasswordRepository.findByPrefix(prefix)
 
     override fun findByPrefixStream(prefix: String): Stream<PwnedPasswordResponse> =
             findByPrefix(prefix).map { PwnedPasswordResponse.from(it) }
