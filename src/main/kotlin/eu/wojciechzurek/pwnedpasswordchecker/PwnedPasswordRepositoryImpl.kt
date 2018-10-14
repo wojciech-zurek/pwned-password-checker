@@ -12,21 +12,22 @@ import java.util.NoSuchElementException
 @Repository
 class PwnedPasswordRepositoryImpl(private val jdbcTemplate: NamedParameterJdbcTemplate) : PwnedPasswordRepository {
 
-    override fun findByPrefix(prefix: String): Stream<PwnedPassword> {
+    override fun findByPrefix(prefix: Int): Stream<PwnedPassword> {
         return queryForStream(
-                "SELECT suffix, count FROM pwned_passwords WHERE prefix = :prefix",
+                "SELECT convert_from(suffix, 'UTF8') as suffix, count FROM pwned_passwords WHERE prefix = :prefix",
                 { PwnedPassword(it.getString("suffix"), it.getInt("count")) },
                 mapOf("prefix" to prefix))
     }
 
-    private fun <T : Any> queryForStream(sql: String, converter: (SqlRowSet) -> T, args: Map<String, Any>): Stream<T> =
+    private fun <T : Any> queryForStream(sql: String, mapper: (SqlRowSet) -> T, args: Map<String, Any>): Stream<T> =
             jdbcTemplate.queryForRowSet(sql, args)
-                    .let { rs -> iterator(rs, converter) }
+                    .let { rs -> iterator(rs, mapper) }
                     .let { Spliterators.spliteratorUnknownSize(it, Spliterator.IMMUTABLE) }
                     .let { StreamSupport.stream(it, false) }
 
-    private fun <T : Any> iterator(rowSet: SqlRowSet, converter: (SqlRowSet) -> T): Iterator<T> =
+    private fun <T : Any> iterator(rowSet: SqlRowSet, mapper: (SqlRowSet) -> T): Iterator<T> =
             object : Iterator<T> {
+
                 override fun hasNext(): Boolean {
                     return !rowSet.isLast
                 }
@@ -36,7 +37,7 @@ class PwnedPasswordRepositoryImpl(private val jdbcTemplate: NamedParameterJdbcTe
                         throw NoSuchElementException()
                     }
 
-                    return converter.invoke(rowSet)
+                    return mapper.invoke(rowSet)
                 }
             }
 }

@@ -4,5 +4,5 @@ import java.util.stream.Stream
 
 interface PwnedPasswordRepository {
 
-    fun findByPrefix(prefix: String): Stream<PwnedPassword>
+    fun findByPrefix(prefix: Int): Stream<PwnedPassword>
 }
