@@ -1,8 +1,8 @@
 package eu.wojciechzurek.pwnedpasswordchecker
 
-import org.springframework.data.jpa.repository.JpaRepository
+import java.util.stream.Stream
 
-interface PwnedPasswordRepository : JpaRepository<PwnedPassword, Long> {
+interface PwnedPasswordRepository {
 
-    fun findByPrefix(prefix: String): List<PwnedPassword>
+    fun findByPrefix(prefix: Int): Stream<PwnedPassword>
 }

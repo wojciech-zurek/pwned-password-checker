@@ -5,9 +5,9 @@ import java.util.stream.Stream
 
 interface PwnedPasswordService {
 
-    fun findByPrefix(prefix: String): Stream<PwnedPassword>
-    fun findByPrefixStream(prefix: String): Stream<PwnedPasswordResponse>
-    fun findByPrefixAsText(prefix: String): String
-    fun findByPrefixAsTextStream(prefix: String): Flux<String>
-    fun findByPrefixAsFlux(prefix: String): Flux<PwnedPasswordResponse>
+    fun findByPrefix(prefix: Int): Stream<PwnedPassword>
+    fun findByPrefixStream(prefix: Int): Stream<PwnedPasswordResponse>
+    fun findByPrefixAsText(prefix: Int): String
+    fun findByPrefixAsTextStream(prefix: Int): Flux<String>
+    fun findByPrefixAsFlux(prefix: Int): Flux<PwnedPasswordResponse>
 }

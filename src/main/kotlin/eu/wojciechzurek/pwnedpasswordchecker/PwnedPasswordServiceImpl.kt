@@ -13,22 +13,22 @@ class PwnedPasswordServiceImpl(
         private val pwnedPasswordRepository: PwnedPasswordRepository
 ) : PwnedPasswordService {
 
-    override fun findByPrefix(prefix: String) = pwnedPasswordRepository.findByPrefix(prefix).stream()
+    override fun findByPrefix(prefix: Int) = pwnedPasswordRepository.findByPrefix(prefix)
 
-    override fun findByPrefixStream(prefix: String): Stream<PwnedPasswordResponse> =
+    override fun findByPrefixStream(prefix: Int): Stream<PwnedPasswordResponse> =
             findByPrefix(prefix).map { PwnedPasswordResponse.from(it) }
 
-    override fun findByPrefixAsText(prefix: String): String =
+    override fun findByPrefixAsText(prefix: Int): String =
             findByPrefix(prefix)
                     .map { "${it.suffix}$DELIMITER${it.count}" }
                     .collect(Collectors.joining("\n"))
 
-    override fun findByPrefixAsTextStream(prefix: String) =
+    override fun findByPrefixAsTextStream(prefix: Int) =
             Flux.fromStream(findByPrefix(prefix).map { "${it.suffix}$DELIMITER${it.count}" })
 
-    fun findByPrefixAsList(prefix: String) =
+    fun findByPrefixAsList(prefix: Int) =
             findByPrefix(prefix).map { PwnedPasswordResponse.from(it) }.toList()
 
-    override fun findByPrefixAsFlux(prefix: String) =
+    override fun findByPrefixAsFlux(prefix: Int) =
             Flux.fromStream(findByPrefix(prefix).map { PwnedPasswordResponse.from(it) })
 }
