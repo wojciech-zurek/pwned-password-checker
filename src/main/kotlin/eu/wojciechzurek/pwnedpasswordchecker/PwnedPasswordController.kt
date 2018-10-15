@@ -22,7 +22,7 @@ class PwnedPasswordController(
 
     @GetMapping(produces = [MediaType.APPLICATION_JSON_UTF8_VALUE])
     fun findByPrefixStream(@PathVariable("prefix") prefix: String) =
-            pwnedPasswordService.findByPrefixStream(prefix.toInt(radix = 16))
+            pwnedPasswordService.findByPrefixAsStream(prefix.toInt(radix = 16))
 
     @GetMapping(produces = [MediaType.APPLICATION_STREAM_JSON_VALUE])
     fun findByPrefixAsFlux(@PathVariable("prefix") prefix: String) =
