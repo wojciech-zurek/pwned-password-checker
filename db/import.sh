@@ -3,7 +3,7 @@
 DB_NAME=pwned-passwords
 DB_USER=pwned-passwords-db-owner
 TABLE_NAME=pwned_passwords
-FILE_PATH=download/pwned-passwords-ordered-by-count.txt
+FILE_PATH=download/pwned-passwords-ordered-by-hash.txt
 
 EXTRACTOR="./extract.sh $FILE_PATH"
 

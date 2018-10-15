@@ -2,7 +2,7 @@
 
 PASSWORD=changeit
 KEYSTORE=cert/keystore.p12
-URL=https://downloads.pwnedpasswords.com/passwords/pwned-passwords-ordered-by-count.7z
+URL=https://downloads.pwnedpasswords.com/passwords/pwned-passwords-ordered-by-hash.7z
 FILE_NAME=pwned-passwords-ordered-by-count.7z
 DOCKER_TAG=eu.wojciechzurek/pwned-password-checker
 DOCKER_VERSION=1.0.0
