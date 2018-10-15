@@ -1,5 +1,6 @@
 package eu.wojciechzurek.pwnedpasswordchecker
 
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import java.util.stream.Collectors
@@ -15,9 +16,10 @@ class PwnedPasswordServiceImpl(
 
     override fun findByPrefix(prefix: Int) = pwnedPasswordRepository.findByPrefix(prefix)
 
-    override fun findByPrefixStream(prefix: Int): Stream<PwnedPasswordResponse> =
+    override fun findByPrefixAsStream(prefix: Int): Stream<PwnedPasswordResponse> =
             findByPrefix(prefix).map { PwnedPasswordResponse.from(it) }
 
+    @Cacheable(cacheNames = ["text-passwords"])
     override fun findByPrefixAsText(prefix: Int): String =
             findByPrefix(prefix)
                     .map { "${it.suffix}$DELIMITER${it.count}" }
@@ -26,7 +28,8 @@ class PwnedPasswordServiceImpl(
     override fun findByPrefixAsTextStream(prefix: Int) =
             Flux.fromStream(findByPrefix(prefix).map { "${it.suffix}$DELIMITER${it.count}" })
 
-    fun findByPrefixAsList(prefix: Int) =
+    @Cacheable(cacheNames = ["list-passwords"])
+    override fun findByPrefixAsList(prefix: Int) =
             findByPrefix(prefix).map { PwnedPasswordResponse.from(it) }.toList()
 
     override fun findByPrefixAsFlux(prefix: Int) =
